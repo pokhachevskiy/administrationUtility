@@ -67,10 +67,8 @@ class UserAttributesWindow(QWidget):
 
     def button_clicked(self, button):
         try:
-            # print(self.delegate)
-            # self.delegate.modify()
-            # print(self.data[0])
-            self.data.modify()
+            self.delegate.modify()
+            # self.data.modify()
             self.status.setText("accepted")
         except:
             print("exception")

@@ -1,1 +1,1 @@
-{"users": [{"sAMAccountName": ["test1"], "amdzUserName": ["e2576ba26a639cc39f36b0e12da73eef"], "amdzGroup": ["2625c23bfb7b94e38cdecc3b01a67f31"]}, {"sAMAccountName": ["test2"], "amdzUserName": ["d10b996e56a4a1c97f4bc95126e2d4db"], "amdzGroup": ["c4c18af6164b1cbaea939ea71a54a17f"]}]}
+{"users": [{"sAMAccountName": ["test1"], "amdzUserName": ["6fbf4957dd6984956990e36dd840f4a0"], "amdzGroup": ["4f753602d4ecd3ab514da9879ab5f412"]}, {"sAMAccountName": ["test2"], "amdzUserName": ["05fd45b15a04d6db5cdc04fe7c567a44"], "amdzGroup": ["c4c18af6164b1cbaea939ea71a54a17f"]}]}
