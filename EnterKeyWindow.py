@@ -17,6 +17,7 @@ class EnterKeyWindow(QWidget):
         super().__init__()
         self.encoder = encoder
         self.delegate = delegate
+        self.key_was_added = False
         self.vert_layout = QVBoxLayout()
 
         self.button = QPushButton()
@@ -37,6 +38,7 @@ class EnterKeyWindow(QWidget):
     def button_clicked(self):
         try:
             self.encoder.set_key(bytes.fromhex(self.lineEdit.text()))
+            self.key_was_added = True
             self.close()
         except:
             msg = QMessageBox()
@@ -47,5 +49,8 @@ class EnterKeyWindow(QWidget):
             msg.show()
 
     def closeEvent(self, event):
-        self.delegate.set_mode(0)
+        if self.key_was_added:
+            self.delegate.set_mode(2)
+        else:
+            self.delegate.set_mode(0)
         event.accept()

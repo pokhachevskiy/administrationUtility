@@ -26,7 +26,7 @@ connection = Connection(creds)
 database = obtain_database()
 
 
-connection.database = database
+# connection.database = database
 
 window.database = database
 

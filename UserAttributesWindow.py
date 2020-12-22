@@ -5,6 +5,7 @@ from Encoder import *
 from NamedLineEdit import NamedLineEdit
 from NamedCheckBox import NamedCheckBox
 from AttributesMap import AttributesMap
+from environment import test_mode
 
 
 class UserAttributesWindow(QWidget):
@@ -21,12 +22,7 @@ class UserAttributesWindow(QWidget):
         attributes_map = AttributesMap('config.json')
         self.attributes = attributes_map.attributes
         self.encoder = encoder
-        # вынести ключ на выбор режима
-        # try:
-        #     key = KeyService().key
-        #     self.encoder = Encoder(key)
-        # except:
-        #     self.encoder = None
+
         self.vert_layout = QVBoxLayout()
         self.button = QPushButton()
         self.button.setText("Внести изменения")
@@ -85,7 +81,7 @@ class UserAttributesWindow(QWidget):
                 value = value[0]
             data = self.encoder.decrypt(bytes.fromhex(value)).decode()
             line.setText(data)
-        except UnicodeDecodeError:
+        except (UnicodeDecodeError, IndexError):
             line.setPlaceholderText("Значение повреждено")
         except:
             line.setPlaceholderText("Значение не установлено")
@@ -96,9 +92,13 @@ class UserAttributesWindow(QWidget):
 
     def button_clicked(self, button):
         try:
-            self.delegate.modify()
-            # self.data.modify()
+            if test_mode:
+                self.delegate.modify()
+            else:
+                self.data.modify()
             self.status.setText("accepted")
+        except AttributeError as err:
+            print(err)
+            self.status.setText("Произошла ошибка")
         except:
-            print("exception")
-            self.status.setText(str(sys.exc_info()[0]))
+            self.status.setText("Произошла ошибка записи в БД: " + str(sys.exc_info()))
