@@ -3,6 +3,8 @@ import sys
 from KeyService import *
 from Encoder import *
 from NamedLineEdit import NamedLineEdit
+from NamedCheckBox import NamedCheckBox
+from AttributesMap import AttributesMap
 
 
 class UserAttributesWindow(QWidget):
@@ -11,22 +13,26 @@ class UserAttributesWindow(QWidget):
     will appear as a free-floating window as we want.
     """
 
-    def __init__(self, data) -> QWidget:
+    def __init__(self, data, encoder) -> QWidget:
         super().__init__()
         self.data = data.data
         self.delegate = []
-        self.attributes = {'Имя пользователя': 'amdzUserName', 'Группа': 'amdzGroup'}
-        try:
-            key = KeyService().key
-            self.encoder = Encoder(key)
-        except:
-            self.encoder = None
+        # start with password and kind of work (enc/noenc)
+        attributes_map = AttributesMap('config.json')
+        self.attributes = attributes_map.attributes
+        self.encoder = encoder
+        # вынести ключ на выбор режима
+        # try:
+        #     key = KeyService().key
+        #     self.encoder = Encoder(key)
+        # except:
+        #     self.encoder = None
         self.vert_layout = QVBoxLayout()
         self.button = QPushButton()
         self.button.setText("Внести изменения")
         self.status = QLabel()
         self.formLayout = QFormLayout()
-        self.table = {}
+        # self.table = {}
 
         self.label = QLabel(str(self.data["sAMAccountName"][0]))
         self.vert_layout.addWidget(self.label)
@@ -37,29 +43,52 @@ class UserAttributesWindow(QWidget):
         self.vert_layout.addWidget(self.status)
         self.setLayout(self.vert_layout)
         self.setup()
+        return None
 
     def create_table(self):
         form_layout = self.formLayout
         for attribute in self.attributes:
-            line = self.create_label(attribute)
-            line.text_was_changed.connect(self.update_database)
-            form_layout.addRow(str(attribute), line)
-            self.table[attribute] = line
+            if self.attributes[attribute]['boolean']:
+                view = self.create_checkbox(attribute)
+                view.state_was_changed.connect(self.update_database)
+            else:
+                view = self.create_label(attribute)
+                view.text_was_changed.connect(self.update_database)
+            form_layout.addRow(str(attribute), view)
+            # self.table[attribute] = line
+
+    def create_checkbox(self, attribute):
+        key = self.attributes[attribute]['value']
+        checkbox = NamedCheckBox(key)
+        try:
+            value = self.data[key]
+            if isinstance(value, list):
+                value = value[0]
+            state = self.encoder.decrypt(bytes.fromhex(value)).decode()
+        except:
+            state = False
+        checkbox.setChecked(bool(state))
+        return checkbox
 
     def update_database(self, attribute, text):
-        self.data[attribute] = [self.encoder.encrypt(text.encode('utf-8')).hex()]
+        casted_text = str(text)
+        self.data[attribute] = [self.encoder.encrypt(casted_text.encode('utf-8')).hex()]
         # print(self.data)
 
     def create_label(self, attribute):
-        line = NamedLineEdit(self.attributes[attribute])
+        key = self.attributes[attribute]['value']
+        line = NamedLineEdit(key)
+        line.setMinimumWidth(180)
         try:
-            value = self.data[self.attributes[attribute]]
+            value = self.data[key]
             if isinstance(value, list):
                 value = value[0]
             data = self.encoder.decrypt(bytes.fromhex(value)).decode()
             line.setText(data)
+        except UnicodeDecodeError:
+            line.setPlaceholderText("Значение повреждено")
         except:
-            line.setText("placeholder")
+            line.setPlaceholderText("Значение не установлено")
         return line
 
     def setup(self):

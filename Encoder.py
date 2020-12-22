@@ -2,7 +2,10 @@ from pygost.gost3412 import *
 
 
 class Encoder:
-    def __init__(self, key):
+    def __init__(self):
+        self.encoder = None
+
+    def set_key(self, key):
         self.encoder = GOST3412Kuznechik(key)
 
     def encrypt(self, text):
