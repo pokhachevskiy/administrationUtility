@@ -19,7 +19,10 @@ class UserAttributesWindow(QWidget):
         self.data = data.data
         self.delegate = []
         # start with password and kind of work (enc/noenc)
-        attributes_map = AttributesMap('config.json')
+        if not encoder.mode:
+            attributes_map = AttributesMap('config_plain.json')
+        else:
+            attributes_map = AttributesMap('config.json')
         self.attributes = attributes_map.attributes
         self.encoder = encoder
 
@@ -39,7 +42,6 @@ class UserAttributesWindow(QWidget):
         self.vert_layout.addWidget(self.status)
         self.setLayout(self.vert_layout)
         self.setup()
-        return None
 
     def create_table(self):
         form_layout = self.formLayout

@@ -1,0 +1,22 @@
+{
+	"amdzLoginEnabled" : "pamdzLoginEnabled",
+	"amdzUserName" : "pamdzUserName",
+	"amdzGroupName" : "pamdzGroupName",
+	"amdzXid" : "pamdzXid",
+	"amdzTmid" : "pamdzTmid",
+	"amdzAuthData" : "pamdzAuthData",
+	"amdzPasswordExpirationDate" : "pamdzPasswordExpirationDate",
+	"amdzPasswordChangeRetriesLeft" : "pamdzPasswordChangeRetriesLeft",
+	"amdzAdminAttrs" : "pamdzAdminAttrs",
+	"amdzSupervisor" : "pamdzSupervisor",
+	"amdzGroupFlag" : "pamdzGroupFlag",
+	"amdzBlocked" : "pamdzBlocked",
+	"amdzIaResults" : "pamdzIaResults",
+	"amdzPasswordParams" : "pamdzPasswordParams",
+	"amdzWorkingHours" : "pamdzWorkingHours",
+	"amdzLongLifeDays" : "pamdzLongLifeDays",
+	"amdzMaxAuthFails" : "pamdzMaxAuthFails",
+	"amdzActiveAfter" : "pamdzActiveAfter",
+	"amdzActiveBefore" : "pamdzActiveBefore",
+	"amdzMac" : "pamdzMac"
+}
