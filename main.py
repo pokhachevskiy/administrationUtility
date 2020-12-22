@@ -1,36 +1,43 @@
 from UserListWindow import *
 from DataBaseWrapper import *
 from Connection import *
+from AuthorizationWindow import *
 
 app = QApplication([])
 
 
-def obtain_database():
-    if test_mode:
-        res = DataBaseWrapper()
-        return res
-    else:
-        search_string = "(objectCategory=User)"
-        res = connection.search(search_string)
-        return res
 
 
-creds_file = open('credentials.json', 'r')
-creds = json.load(creds_file)
-creds_file.close()
 
 
-window = UserListWindow()
-connection = Connection(creds)
 
-database = obtain_database()
+class Router:
+    def __init__(self, creds):
+        self.creds = creds
+
+    def routeMainScreen(self):
+        self.window = UserListWindow()
+        self.connection = Connection(creds)
+        database = self.obtain_database()
+        self.window.database = database
+        self.window.configure()
+        self.window.show()
+
+    def obtain_database(self):
+        if test_mode:
+            res = DataBaseWrapper()
+            return res
+        else:
+            search_string = "(objectCategory=User)"
+            res = self.connection.search(search_string)
+            return res
 
 
-# connection.database = database
+creds = {}
 
-window.database = database
+router = Router(creds)
 
-window.configure()
+authorizationWindow = AuthorizationWindow(router, creds)
+authorizationWindow.show()
 
-window.show()
 app.exec_()
