@@ -14,15 +14,11 @@ class UserAttributesWindow(QWidget):
     will appear as a free-floating window as we want.
     """
 
-    def __init__(self, data, encoder) -> QWidget:
+    def __init__(self, data, encoder, attributes_map) -> QWidget:
         super().__init__()
         self.data = data.data
         self.delegate = []
         # start with password and kind of work (enc/noenc)
-        if not encoder.mode:
-            attributes_map = AttributesMap('config_plain.json')
-        else:
-            attributes_map = AttributesMap('config.json')
         self.attributes = attributes_map.attributes
         self.encoder = encoder
 
@@ -31,7 +27,6 @@ class UserAttributesWindow(QWidget):
         self.button.setText("Внести изменения")
         self.status = QLabel()
         self.formLayout = QFormLayout()
-        # self.table = {}
 
         self.label = QLabel(str(self.data["sAMAccountName"][0]))
         self.vert_layout.addWidget(self.label)
@@ -53,7 +48,6 @@ class UserAttributesWindow(QWidget):
                 view = self.create_label(attribute)
                 view.text_was_changed.connect(self.update_database)
             form_layout.addRow(str(attribute), view)
-            # self.table[attribute] = line
 
     def create_checkbox(self, attribute):
         key = self.attributes[attribute]['value']
@@ -62,10 +56,11 @@ class UserAttributesWindow(QWidget):
             value = self.data[key]
             if isinstance(value, list):
                 value = value[0]
+            value = str(value)
             state = self.encoder.decrypt(bytes.fromhex(value)).decode()
         except:
             state = False
-        checkbox.setChecked(bool(state))
+        checkbox.setChecked(bool(int(state)))
         return checkbox
 
     def update_database(self, attribute, text):
@@ -81,6 +76,7 @@ class UserAttributesWindow(QWidget):
             value = self.data[key]
             if isinstance(value, list):
                 value = value[0]
+            value = str(value)
             data = self.encoder.decrypt(bytes.fromhex(value)).decode()
             line.setText(data)
         except (UnicodeDecodeError, IndexError):
