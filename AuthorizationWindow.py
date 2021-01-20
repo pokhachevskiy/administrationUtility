@@ -32,6 +32,7 @@ class AuthorizationWindow(QWidget):
         self.password = QLineEdit()
         self.password_label = QLabel("Пароль администратора домена")
         self.password.setPlaceholderText("Пароль")
+        self.password.setEchoMode(QLineEdit.Password)
 
         self.status = QLabel("Введите логин и пароль, затем нажмите ОК.")
 
