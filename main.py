@@ -6,11 +6,7 @@ from AuthorizationWindow import *
 app = QApplication([])
 
 
-
-
-
-
-
+# Выполняет переход на главный экран после процедуры авторизации.
 class Router:
     def __init__(self, creds):
         self.creds = creds

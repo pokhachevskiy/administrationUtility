@@ -1,6 +1,9 @@
 from pygost.gost3412 import *
 
 
+# Класс для шифрования/енкодинга данных.
+# mode - режим работы. True - активный (шифрование).
+# False - неактивный (только де-енкодинг)
 class Encoder:
     def __init__(self):
         self.encoder = None

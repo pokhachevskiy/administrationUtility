@@ -8,6 +8,8 @@ from NamedCheckBox import *
 from AttributesMap import AttributesMap
 from environment import test_mode
 
+# Вспомогательные описания сложных атриубутов, содержащих более 1 строкового значения.
+# Например, password_params
 password_params = {"timeleft": "Время действия",
                    "minlength": "Минимальная длина",
                    "retries_left": "Попыток для смены"}
@@ -33,11 +35,8 @@ ia_attrs = {'tmid': {'name': 'Идентификатор', 'value': 1},
             'level': {'name': 'Уровень доступа пользователя', 'value': 128}}
 
 
+# Окно отображения пользовательских атрибутов
 class UserAttributesWindow(QWidget):
-    """
-    This "window" is a QWidget. If it has no parent, it
-    will appear as a free-floating window as we want.
-    """
 
     def __init__(self, data, encoder, attributes_map) -> QWidget:
         super().__init__()

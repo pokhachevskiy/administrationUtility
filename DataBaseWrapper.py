@@ -6,6 +6,7 @@ class DictWrapper:
         self.data = data
 
 
+# Обертка над базой данных для отладочного режима (не требует домена в окружении)
 class DataBaseWrapper:
     def __init__(self):
         try:

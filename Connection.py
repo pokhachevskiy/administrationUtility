@@ -1,10 +1,10 @@
-# import bonsai
 from environment import test_mode
 
 if not test_mode:
     import bonsai
 
 
+# Класс отвечающий за подключение оператора к базе данных AD
 class Connection:
     def __init__(self, credentials):
         domain = credentials['domain']

@@ -3,11 +3,8 @@ from Connection import *
 import sys
 
 
+# Окно авторизации пользователя
 class AuthorizationWindow(QWidget):
-    """
-    This "window" is a QWidget. If it has no parent, it
-    will appear as a free-floating window as we want.
-    """
 
     def __init__(self, router, creds) -> QWidget:
         super().__init__()
@@ -60,7 +57,6 @@ class AuthorizationWindow(QWidget):
             self.close()
         except:
             self.status.setText("Пароль или логин не верны. Попробуйте еще раз.")
-
 
     def button_cancel_clicked(self):
         self.close()

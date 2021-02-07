@@ -5,6 +5,8 @@ from EnterKeyWindow import *
 from environment import test_mode
 
 
+# Главное окно приложения.
+# Окно списка пользователей домена.
 class UserListWindow(QMainWindow):
 
     def __init__(self):

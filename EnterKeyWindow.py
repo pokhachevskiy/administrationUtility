@@ -7,6 +7,7 @@ from KeyService import *
 from Encoder import *
 
 
+# Окно ввода ключа шифрования
 class EnterKeyWindow(QWidget):
     """
     This "window" is a QWidget. If it has no parent, it

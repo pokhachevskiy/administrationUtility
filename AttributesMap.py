@@ -11,7 +11,7 @@ class AttributesMap:
             'Разрешена аутентификация в АМДЗ': {'boolean': True, 'complex': False, 'name': 'amdzLoginEnabled', 'value': amap['amdzLoginEnabled']},
             'Имя пользователя': {'boolean': False, 'complex': False, 'name': 'amdzUserName', 'value': amap['amdzUserName']},
             'Группа': {'boolean': False, 'complex': False, 'name': 'amdzGroupName', 'value': amap['amdzGroupName']},
-            'TM-идентификатор': {'boolean': False, 'complex': True, 'name': 'amdzTmid', 'value': amap['amdzTmid']},
+            'TM-идентификатор': {'boolean': False, 'complex': False, 'name': 'amdzTmid', 'value': amap['amdzTmid']},
             'Свертка TM-идентификатора и пароля': {'boolean': False, 'complex': False, 'name': 'amdzXid', 'value': amap['amdzXid']},
             'Открытый ключ': {'boolean': False, 'complex': False, 'name': 'amdzAuthData', 'value': amap['amdzAuthData']},
             'Последний день смены пароля': {'boolean': False, 'complex': True, 'name': 'amdzPasswordExpirationDate', 'value': amap['amdzPasswordExpirationDate']},

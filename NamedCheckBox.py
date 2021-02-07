@@ -2,6 +2,8 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 
 
+# Этот файл содержит вспомогательыне обертки над стандартными qt элементами.
+# Предназначен для удобства обработки событий.
 class NamedCheckBox(QCheckBox):
     state_was_changed = pyqtSignal(str, int)
 

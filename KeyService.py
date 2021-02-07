@@ -12,6 +12,7 @@ def generate_random_key():
     return key
 
 
+# Утилита для генерации ключей
 class KeyService:
     def __init__(self, filename="keyfile.txt"):
         f = open(filename, "r")
